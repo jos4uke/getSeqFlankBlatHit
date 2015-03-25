@@ -14,9 +14,9 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("modblat", help="modified blat alignment file in psl-like format: cf. QT")
 
-parser.add_argument("-t", "--target_fragment_size", help="the target fragment size to extract")
+parser.add_argument("-t", "--target_transcript_fragment_size", dest="tt_frag_sz", type=int, default=4000, help="the target transcript fragment size to extract [default: %(default)s]")
 
 args = parser.parse_args()
 
-print args.target_fragment_size
+print args.tt_frag_sz
 
