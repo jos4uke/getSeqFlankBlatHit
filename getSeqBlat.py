@@ -11,8 +11,8 @@ import argparse
 
 ## parse arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("blat", help="blat alignment file in psl format")
+parser.add_argument("modblat", help="modified blat alignment file in psl-like format: cf. QT")
 args = parser.parse_args()
-print args.blat
+print args.modblat
 
 
