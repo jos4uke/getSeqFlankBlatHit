@@ -17,9 +17,10 @@
 import argparse
 
 ## parse arguments
-parser = argparse.ArgumentParser(description="Extraire les séquences à partir d'un résultat blat")
+parser = argparse.ArgumentParser(description="Extraire les séquences génomiques à partir d'un résultat blat")
 
 parser.add_argument("modblat", help="modified blat alignment file in psl-like format: cf. QT")
+parser.add_argument("genome", help="genome in fasta format")
 
 parser.add_argument("-t", "--target_transcript_fragment_size", dest="tt_frag_sz", type=int, default=4000, help="the target transcript fragment size to extract [default: %(default)s]")
 
