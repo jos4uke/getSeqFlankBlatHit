@@ -23,3 +23,6 @@ args = parser.parse_args()
 ## load blat
 ## iterate over blat hits and extract genomic sequences regarding the given fragment sizes (transcript and LTR) at the reference position
 ### 2 cases: strand + or -
+## export fasta output
+### seq_id: Qname ; Tname ; LTR size; transcript size ; total size
+### seq
