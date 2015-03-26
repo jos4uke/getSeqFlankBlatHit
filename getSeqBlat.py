@@ -19,5 +19,7 @@ parser.add_argument("-t", "--target_transcript_fragment_size", dest="tt_frag_sz"
 
 args = parser.parse_args()
 
-print args.tt_frag_sz
-
+## load genome
+## load blat
+## iterate over blat hits and extract genomic sequences regarding the given fragment sizes (transcript and LTR) at the reference position
+### 2 cases: strand + or -
