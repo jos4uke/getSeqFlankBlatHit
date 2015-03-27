@@ -26,3 +26,6 @@ args = parser.parse_args()
 ## export fasta output
 ### seq_id: Qname ; Tname ; LTR size; transcript size ; total size
 ### seq
+
+## load genome
+fasta = args.genome
