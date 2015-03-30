@@ -21,5 +21,22 @@ class ModBlatHit(object):
         self.matches = int(matches)
         self.mismatches = int(mismatches)
         self.repmatches = int(repmatches)
-
-
+        self.countN = int(countN)
+        self.qgapcount = int(qgapcount)
+        self.qgapbases = int(qgapbases)
+        self.tgapcount = int(tgapcount)
+        self.tgapbases = int(tgapbases)
+        self.strand = strand
+        self.qname = qname
+        self.qsize = int(qsize)
+        self.qstart = int(qstart)
+        self.textractsize = int(textractsize)
+        self.qend = int(qend)
+        self.tname = tname
+        self.tsize = int(tsize)
+        self.tstart = int(tstart)
+        self.tend = int(tend)
+        self.blockcount = int(blockcount)
+        self.blocksizes = [int(x) for x in blocksizes.split(',')[0:-1]]
+        self.qstarts = [int(x) for x in qstarts.split(',')[0:-1]]
+        self.tstarts = [int(x) for x in tstarts.strip().split(',')[0:-1]]
