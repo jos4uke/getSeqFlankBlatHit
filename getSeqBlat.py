@@ -56,7 +56,8 @@ if __name__ == '__main__':
     ## load mod blat
     ## iterate over blat hits and extract genomic sequences regarding the given fragment sizes (transcript and LTR) at the reference position
     ### 2 cases: strand + or -
-    ## export fasta output
+    ## export bed with sequence coordinates to extract
+    ## export fasta output using pybedtools
     ### seq_id: Qname ; Tname ; LTR size; transcript size ; total size
     ### seq
 
@@ -65,5 +66,16 @@ if __name__ == '__main__':
     logger.debug(fasta)
 
     ## load mod blat
-    logger.debug(args.modblat)
+    logger.info("mod blat file: " + args.modblat)
+    modblathits = []
+    fp = open(args.modblat)
+    with fp as f:
+        # skip header line
+        next(f)
+        for line in f:
+            hit = ModBlatHit(line)
+            modblathits.append(hit)
 
+    logger.info("number of blat hits: " + str(len(modblathits)))
+    for hit in modblathits:
+        logger.debug("qname/tname pair: " + str(hit.qname) + "/" + str(hit.tname))
