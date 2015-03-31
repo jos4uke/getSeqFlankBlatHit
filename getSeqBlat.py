@@ -41,41 +41,56 @@ logger.addHandler(ch)
 
 ## functions ##
 
+def main():
+    try:
+        ### steps ###
+        ## load genome
+        ## load mod blat
+        ## iterate over blat hits and extract genomic sequences regarding the given fragment sizes (transcript and LTR) at the reference position
+        ### 2 cases: strand + or -
+        ## export bed with sequence coordinates to extract
+        ## export fasta output using pybedtools
+        ### seq_id: Qname ; Tname ; LTR size; transcript size ; total size
+        ### seq
+
+        ## load genome
+        logger.info("Loading fasta genome ...")
+        if stat(args.genome).st_size == 0:
+            logger.error("genome file is empty: " + args.genome )
+            sys.exit(1)
+        else:
+            fasta = Fasta(args.genome)
+            logger.info("genome file: " + args.genome)
+            logger.info("number of reference sequences: " + str(len(sorted(fasta.keys()))))
+        
+
+        ## load mod blat
+        logger.info("mod blat file: " + args.modblat)
+        modblathits = []
+        fp = open(args.modblat)
+        with fp as f:
+            # skip header line
+            next(f)
+            for line in f:
+                hit = ModBlatHit(line)
+                modblathits.append(hit)
+
+        logger.info("number of blat hits: " + str(len(modblathits)))
+        for hit in modblathits:
+            logger.log(0, "qname/tname pair: " + str(hit.qname) + "/" + str(hit.tname))
+    
+    except KeyboardInterrupt:
+        print "Shutdown requested...exiting"
+    except Exception:
+        traceback.print_exc(file=sys.stdout)
+    sys.exit(0)
 
 ### MAIN ###
 if __name__ == '__main__':
-    if __package__ is None:
-        import sys
-        from os import path
-        sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-
+    import sys, traceback
+    from os import path, stat
+    from pyfasta import Fasta
+    #sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
     from getSeqBlatLib import ModBlatHit
 
-    ### steps ###
-    ## load genome
-    ## load mod blat
-    ## iterate over blat hits and extract genomic sequences regarding the given fragment sizes (transcript and LTR) at the reference position
-    ### 2 cases: strand + or -
-    ## export bed with sequence coordinates to extract
-    ## export fasta output using pybedtools
-    ### seq_id: Qname ; Tname ; LTR size; transcript size ; total size
-    ### seq
-
-    ## load genome
-    fasta = args.genome
-    logger.debug(fasta)
-
-    ## load mod blat
-    logger.info("mod blat file: " + args.modblat)
-    modblathits = []
-    fp = open(args.modblat)
-    with fp as f:
-        # skip header line
-        next(f)
-        for line in f:
-            hit = ModBlatHit(line)
-            modblathits.append(hit)
-
-    logger.info("number of blat hits: " + str(len(modblathits)))
-    for hit in modblathits:
-        logger.debug("qname/tname pair: " + str(hit.qname) + "/" + str(hit.tname))
+    main()
