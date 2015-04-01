@@ -193,6 +193,50 @@ class TestModBlatHit():
         chromEnd_comp = hit.computeGenomicSequenceCoord(frag_size, hit.tend, 'downstream')
         assert chromEnd_comp == chromEnd_exp
 
+    def test_computeGenomicSequenceCoord_forward(self):
+        # test genomic sequence bed item computation for a forward strand hit
+
+        hitline="2349	2	0	0	2	2	3	122	+	mira_c148	2353	0	2353	gb|AWOK01318317.1|	18255	5826	8299	6	46,322,748,78,1007,150,	0,46,369,1117,1196,2203,	5826,5873,6195,7063,7141,8149,"
+        ltr_size = 615
+        transcript_size = 4000
+        hit = ModBlatHit(hitline)
+        bi = hit.computeGenomicSequenceBedItem(ltr_size, transcript_size)
+        t_comp = bi.totuple()
+        chrom_exp = 'gb|AWOK01318317.1|'
+        chromStart_exp = 5826 - ltr_size
+        chromEnd_exp = 5826 + transcript_size
+        length = chromEnd_exp - chromStart_exp + 1
+        name_exp = " ; ".join(['mira_c148', 'gb|AWOK01318317.1|', str(chromStart_exp) + ":" + str(chromEnd_exp), str(length)]) 
+        t_exp = (chrom_exp,
+                    chromStart_exp,
+                    chromEnd_exp,
+                    name_exp,
+                    0,
+                    'forward')
+        assert t_comp == t_exp
+    
+    def test_computeGenomicSequenceCoord_reverse(self):
+        # test genomic sequence bed item computation for a reverse strand hit
+
+        hitline = "359	2	0	0	1	5	1	1	-	mira_rep_c5792	366	0	366	gb|AWOK01096782.1|	49796	48388	48750	2	7,354,	0,12,	48388,48396,"
+        ltr_size = 615
+        transcript_size = 4000
+        hit = ModBlatHit(hitline)
+        bi = hit.computeGenomicSequenceBedItem(ltr_size, transcript_size)
+        t_comp = bi.totuple()
+        chrom_exp = 'gb|AWOK01096782.1|'
+        chromStart_exp = 48750 - transcript_size
+        chromEnd_exp = 48750 + ltr_size
+        length = chromEnd_exp - chromStart_exp + 1
+        name_exp = " ; ".join(['mira_rep_c5792', 'gb|AWOK01096782.1|', str(chromStart_exp) + ":" + str(chromEnd_exp), str(length), 'rc']) 
+        t_exp = (chrom_exp,
+                    chromStart_exp,
+                    chromEnd_exp,
+                    name_exp,
+                    0,
+                    'reverse')
+        assert t_comp == t_exp
+
 
 class TestLoadModBlat():
     @classmethod

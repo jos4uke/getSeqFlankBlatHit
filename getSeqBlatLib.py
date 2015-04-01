@@ -50,10 +50,38 @@ class ModBlatHit(object):
         self.qstarts = [int(x) for x in qstarts.split(',')[0:-1]]
         self.tstarts = [int(x) for x in tstarts.strip().split(',')[0:-1]]
 
-    def extractGenomicSequenceCoordinates(self, ltr_size, transcript_size):
+    def computeGenomicSequenceBedItem(self, ltr_size, transcript_size):
         ''' compute start, end by strand
             set and return bed item
         '''
+        if self.strand == '+':
+            chrom = self.tname
+            chromStart = self.computeGenomicSequenceCoord(ltr_size, self.tstart, 'upstream')
+            chromEnd = self.computeGenomicSequenceCoord(transcript_size, self.tstart, 'downstream')
+            length = chromEnd - chromStart + 1
+            name = " ; ".join([self.qname, self.tname, str(chromStart) + ":" + str(chromEnd), str(length)])
+            score = 0
+            strand = 'forward'
+            bi = BedItem([chrom, chromStart, chromEnd])
+            bi.set_name(name)
+            bi.set_score(score)
+            bi.set_strand(strand)
+            return bi
+        elif self.strand == '-':
+            chrom = self.tname
+            chromStart = self.computeGenomicSequenceCoord(transcript_size, self.tend, 'upstream')
+            chromEnd = self.computeGenomicSequenceCoord(ltr_size, self.tend, 'downstream')
+            length = chromEnd - chromStart + 1
+            name = " ; ".join([self.qname, self.tname, str(chromStart) + ":" + str(chromEnd), str(length), 'rc'])
+            score = 0
+            strand = 'reverse'
+            bi = BedItem([chrom, chromStart, chromEnd])
+            bi.set_name(name)
+            bi.set_score(score)
+            bi.set_strand(strand)
+            return bi
+        else:
+            pass
 
     def computeGenomicSequenceCoord(self, frag_size, ref_position, genomic_direction):
         ''' compute genomic sequence coordinate given the genomic fragment size to extract, the reference position to start from
