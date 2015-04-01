@@ -62,18 +62,18 @@ class ModBlatHit(object):
         assert genomic_direction in set([GenomicDirections.UPSTREAM, GenomicDirections.DOWNSTREAM])
 
         if genomic_direction == GenomicDirections.UPSTREAM:
-            target_upstream_length = ref_position + 1
-            if target_upstream_length >= frag_size:
-                genomicCoord = ref_position - frag_size + 1
+            target_upstream_length = ref_position
+            if target_upstream_length > frag_size:
+                genomicCoord = ref_position - frag_size
             else:
                 genomicCoord = 0
 
         elif genomic_direction == GenomicDirections.DOWNSTREAM:
             target_downstream_length = self.tsize - ref_position
-            if target_downstream_length >= frag_size:
+            if target_downstream_length > frag_size:
                 genomicCoord = ref_position + frag_size
             else:
-                genomicCoord = self.tend 
+                genomicCoord = self.tsize - 1 
 
         return genomicCoord
         
