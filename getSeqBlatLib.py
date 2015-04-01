@@ -3,6 +3,13 @@
 import math
 
 ## classes ##
+
+class GenomicDirections():
+    ''' Class to represent genomic directions
+    '''
+    UPSTREAM="upstream"
+    DOWNSTREAM="downstream"
+
 class ModBlatHit(object):
     ''' Class for the modified blat/psl format alignment hit (cf. QT).
         Argument: String in modblat format
@@ -40,6 +47,30 @@ class ModBlatHit(object):
         self.blocksizes = [int(x) for x in blocksizes.split(',')[0:-1]]
         self.qstarts = [int(x) for x in qstarts.split(',')[0:-1]]
         self.tstarts = [int(x) for x in tstarts.strip().split(',')[0:-1]]
+    def computeGenomicSequenceCoord(self, frag_size, ref_position, genomic_direction):
+        ''' compute genomic sequence coordinate given the genomic fragment size to extract, the reference position to start from
+            and the direction
+        '''
+        assert genomic_direction in set([GenomicDirections.UPSTREAM, GenomicDirections.DOWNSTREAM])
+
+        if genomic_direction == GenomicDirections.UPSTREAM:
+            target_upstream_length = ref_position + 1
+            if target_upstream_length >= frag_size:
+                genomicCoord = ref_position - frag_size + 1
+            else:
+                genomicCoord = 0
+
+        elif genomic_direction == GenomicDirections.DOWNSTREAM:
+            target_downstream_length = self.tsize - ref_position
+            if target_downstream_length >= frag_size:
+                genomicCoord = ref_position + frag_size
+            else:
+                genomicCoord = self.tend 
+
+        return genomicCoord
+        
+
+
 class ModBlat(object):
     ''' Class for representing the modified blat/psl file alignments.
         Argument: String to modblat file
