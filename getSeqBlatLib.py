@@ -61,3 +61,32 @@ class ModBlat(object):
         
         return modblathits
 
+
+class BedItem():
+    ''' Class for representing a bed item
+    '''
+
+    def __init__(self, a):
+        chrom, chromStart, chromEnd = a[0:3]
+
+        self.chrom = chrom
+        self.chromStart = int(chromStart)
+        self.chromEnd = int(chromEnd)
+
+    def set_name(self, s):
+        self.name = s
+
+    def set_score(self, i):
+        self.score = int(i)
+
+    def set_strand(self, s):
+        self.strand = s
+
+    def totuple(self):
+        t = (self.chrom,
+                self.chromStart,
+                self.chromEnd,
+                self.name,
+                self.score,
+                self.strand)
+        return t

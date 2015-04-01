@@ -107,3 +107,61 @@ class TestLoadModBlat():
         assert mb.filename == self.modblat
         assert len(mb.hits) == 72
 
+class TestBedItem():
+    @classmethod
+    def setup_class(cls):
+        ''' This method is run once for each class before  any tests  are run 
+        '''
+
+    @classmethod
+    def teardown_class(cls):
+        ''' This method is run once for each class _after_ all tests are run
+        '''
+
+    def setUp(self):
+        ''' This method is run once before _each_ test method is run
+        '''
+        self.beditem = ['chr1', 1, 10]
+        self.name = 'forward'
+        self.score = 0
+        self.strand = '+'
+
+    def tearDown(self):
+        ''' This method is run once after _each_ test method is run
+        '''
+
+    def test_init(self):
+        bi = BedItem(self.beditem)
+        assert bi.chrom == 'chr1'
+        assert bi.chromStart == 1
+        assert bi.chromEnd == 10
+
+    def test_name(self):
+        bi = BedItem(self.beditem)
+        bi.set_name(self.name)
+        assert bi.name == self.name
+
+    def test_score(self):
+        bi = BedItem(self.beditem)
+        bi.set_score(self.score)
+        assert bi.score == self.score
+
+    def test_strand(self):
+        bi = BedItem(self.beditem)
+        bi.set_strand(self.strand)
+        assert bi.strand == self.strand
+
+    def test_totuple(self):
+        bi = BedItem(self.beditem)
+        bi.set_name(self.name)
+        bi.set_score(self.score)
+        bi.set_strand(self.strand)
+        t = (self.beditem[0],
+                self.beditem[1],
+                self.beditem[2],
+                self.name,
+                self.score,
+                self.strand)        
+        assert bi.totuple() == t
+
+
