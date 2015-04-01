@@ -86,7 +86,7 @@ class TestModBlatHit():
         
         hitline = "1408	0	0	0	2	2	2	2	+	mira_c1293	1410	0	1410	gb|AWOK01488203.1|	41178	36524	37934	5	941,13,243,204,7,	0,941,955,1199,1403,	36524,37466,37479,37722,37927,"
         frag_size = 615
-        chromStart_exp = 36524 - frag_size + 1
+        chromStart_exp = 36524 - frag_size
         hit = ModBlatHit(hitline)
         chromStart_comp = hit.computeGenomicSequenceCoord(frag_size, hit.tstart, 'upstream')
         assert chromStart_comp == chromStart_exp
@@ -100,7 +100,7 @@ class TestModBlatHit():
         chromStart_exp = 0
         
         print "Zero case"
-        frag_size = 36525
+        frag_size = 36524
         chromStart_comp = hit.computeGenomicSequenceCoord(frag_size, hit.tstart, 'upstream')
         assert chromStart_comp == chromStart_exp
 
