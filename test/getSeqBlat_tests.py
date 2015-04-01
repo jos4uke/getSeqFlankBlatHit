@@ -139,6 +139,61 @@ class TestModBlatHit():
         chromStart_comp = hit.computeGenomicSequenceCoord(frag_size, hit.tend, 'upstream')
         assert chromStart_comp == chromStart_exp
 
+    def test_computeGenomicSequenceEnd_forward_longdownstream(self):
+        # test genomic sequence end computation for forward strand hit 
+        # and when downstream sequence is longer than the fragment size to extract
+        
+        hitline="2349	2	0	0	2	2	3	122	+	mira_c148	2353	0	2353	gb|AWOK01318317.1|	18255	5826	8299	6	46,322,748,78,1007,150,	0,46,369,1117,1196,2203,	5826,5873,6195,7063,7141,8149,"
+        frag_size = 4000
+        chromEnd_exp = 5826 + frag_size
+        hit = ModBlatHit(hitline)
+        chromEnd_comp = hit.computeGenomicSequenceCoord(frag_size, hit.tstart, 'downstream')
+        assert chromEnd_comp == chromEnd_exp
+
+    def test_computeGenomicSequenceEnd_forward_shortdownstream(self):
+        # test genomic sequence end computation for forward strand hit 
+        # and when downstream sequence is shorter than the fragment size to extract
+        
+        hitline="2349	2	0	0	2	2	3	122	+	mira_c148	2353	0	2353	gb|AWOK01318317.1|	18255	5826	8299	6	46,322,748,78,1007,150,	0,46,369,1117,1196,2203,	5826,5873,6195,7063,7141,8149,"
+        chromEnd_exp = 18254
+        hit = ModBlatHit(hitline)
+
+        print "Zero case"
+        frag_size = 12429
+        chromEnd_comp = hit.computeGenomicSequenceCoord(frag_size, hit.tstart, 'downstream')
+        print 
+        assert chromEnd_comp == chromEnd_exp
+
+    def test_computeGenomicSequenceEnd_reverse_longdownstream(self):
+        # test genomic sequence end computation for reverse strand hit 
+        # and when downstream sequence is longer than the fragment size to extract
+        
+        hitline = "359	2	0	0	1	5	1	1	-	mira_rep_c5792	366	0	366	gb|AWOK01096782.1|	49796	48388	48750	2	7,354,	0,12,	48388,48396," 
+        frag_size = 615
+        chromEnd_exp = 48750 + frag_size
+        hit = ModBlatHit(hitline)
+        chromEnd_comp = hit.computeGenomicSequenceCoord(frag_size, hit.tend, 'downstream')
+        assert chromEnd_comp == chromEnd_exp
+
+    def test_computeGenomicSequenceEnd_reverse_shortdownstream(self):
+        # test genomic sequence end computation for reverse strand hit 
+        # and when downstream sequence is shorter than the fragment size to extract
+        
+        hitline = "359	2	0	0	1	5	1	1	-	mira_rep_c5792	366	0	366	gb|AWOK01096782.1|	49796	48388	48750	2	7,354,	0,12,	48388,48396,"
+        chromEnd_exp = 49796 - 1
+        hit = ModBlatHit(hitline)
+        
+        print "Zero case"
+        frag_size = 1046
+        chromEnd_comp = hit.computeGenomicSequenceCoord(frag_size, hit.tend, 'downstream')
+        assert chromEnd_comp == chromEnd_exp
+
+        print "Shorter case"
+        frag_size = 1500
+        chromEnd_comp = hit.computeGenomicSequenceCoord(frag_size, hit.tend, 'downstream')
+        assert chromEnd_comp == chromEnd_exp
+
+
 class TestLoadModBlat():
     @classmethod
     def setup_class(cls):
