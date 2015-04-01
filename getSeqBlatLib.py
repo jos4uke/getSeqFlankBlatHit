@@ -2,6 +2,9 @@
 
 import math
 
+## functions ##
+
+
 ## classes ##
 
 class GenomicDirections():
@@ -21,9 +24,9 @@ class ModBlatHit(object):
         fields = s.strip().split()
         numFields = len(fields)
         matches, mismatches, repmatches, countN, qgapcount, qgapbases, \
-            tgapcount, tgapbases, strand, qname, qsize, qstart,	textractsize, qend, \
+            tgapcount, tgapbases, strand, qname, qsize, qstart,	qend, \
             tname, tsize, tstart, tend, blockcount, blocksizes, qstarts, \
-            tstarts = fields[0:22]
+            tstarts = fields[0:21]
 
         self.matches = int(matches)
         self.mismatches = int(mismatches)
@@ -37,7 +40,6 @@ class ModBlatHit(object):
         self.qname = qname
         self.qsize = int(qsize)
         self.qstart = int(qstart)
-        self.textractsize = int(textractsize)
         self.qend = int(qend)
         self.tname = tname
         self.tsize = int(tsize)
@@ -47,6 +49,12 @@ class ModBlatHit(object):
         self.blocksizes = [int(x) for x in blocksizes.split(',')[0:-1]]
         self.qstarts = [int(x) for x in qstarts.split(',')[0:-1]]
         self.tstarts = [int(x) for x in tstarts.strip().split(',')[0:-1]]
+
+    def extractGenomicSequenceCoordinates(self, ltr_size, transcript_size):
+        ''' compute start, end by strand
+            set and return bed item
+        '''
+
     def computeGenomicSequenceCoord(self, frag_size, ref_position, genomic_direction):
         ''' compute genomic sequence coordinate given the genomic fragment size to extract, the reference position to start from
             and the direction

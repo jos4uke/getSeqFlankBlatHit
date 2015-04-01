@@ -14,9 +14,10 @@ import logging
 parser = argparse.ArgumentParser(description="Extract genomic sequences from a blat result")
 
 parser.add_argument("genome", help="genome in fasta format")
-parser.add_argument("modblat", help="modified blat alignment file in psl-like format: cf. QT")
+parser.add_argument("modblat", help="modified blat alignment file in psl-like format (one header line, cf. QT)")
 
-parser.add_argument("-t", "--target_transcript_fragment_size", dest="tt_frag_sz", type=int, default=4000, help="the target transcript fragment size to extract [default: %(default)s]")
+parser.add_argument("-U", "--target_upstream_fragment_size", dest="upstream_frag_sz", type=int, default=800, help="the target upstream fragment size to extract [default: %(default)s]")
+parser.add_argument("-D", "--target_downstream_fragment_size", dest="downstream_frag_sz", type=int, default=4000, help="the target downstream fragment size to extract [default: %(default)s]")
 
 args = parser.parse_args()
 
@@ -50,7 +51,7 @@ def main():
         ### 2 cases: strand + or -
         ## export bed with sequence coordinates to extract
         ## export fasta output using pybedtools
-        ### seq_id: Qname ; Tname ; LTR size; transcript size ; total size
+        ### seq_id: Qname ; Tname ; LTR size; transcript size ; total size; RC if strand "-"
         ### seq
 
         ## load genome
