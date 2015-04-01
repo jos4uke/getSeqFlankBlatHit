@@ -65,18 +65,16 @@ def main():
         
 
         ## load mod blat
-        logger.info("mod blat file: " + args.modblat)
-        modblathits = []
-        fp = open(args.modblat)
-        with fp as f:
-            # skip header line
-            next(f)
-            for line in f:
-                hit = ModBlatHit(line)
-                modblathits.append(hit)
+        logger.info("Loading modblat ...")
+        if stat(args.modblat).st_size == 0:
+            logger.error("modblat file is empty: " + args.modblat )
+            sys.exit(1)
+        else:
+            logger.info("mod blat file: " + args.modblat)
+            mb = ModBlat(args.modblat)
 
-        logger.info("number of blat hits: " + str(len(modblathits)))
-        for hit in modblathits:
+        logger.info("number of blat hits: " + str(len(mb.hits)))
+        for hit in mb.hits:
             logger.log(0, "qname/tname pair: " + str(hit.qname) + "/" + str(hit.tname))
     
     except KeyboardInterrupt:
