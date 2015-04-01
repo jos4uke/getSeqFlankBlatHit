@@ -9,7 +9,7 @@
 #import sys
 #from os import path
 #sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-from ..getSeqBlatLib import ModBlatHit
+from ..getSeqBlatLib import ModBlatHit, ModBlat
 
 ### test functions ###
 
@@ -81,4 +81,29 @@ class TestModBlatHit():
                 assert hit.qstarts == [1023,1540]
                 assert hit.tstarts == [0,518]
                 break # end test only first hit
+
+class TestLoadModBlat():
+    @classmethod
+    def setup_class(cls):
+        ''' This method is run once for each class before  any tests  are run 
+        '''
+
+    @classmethod
+    def teardown_class(cls):
+        ''' This method is run once for each class _after_ all tests are run
+        '''
+
+    def setUp(self):
+        ''' This method is run once before _each_ test method is run
+        '''
+        self.modblat = "../data/BLAT_BX_contigs_Tnt1.txt"
+
+    def tearDown(self):
+        ''' This method is run once after _each_ test method is run
+        '''
+
+    def test_init(self):
+        mb = ModBlat(self.modblat)
+        assert mb.filename == self.modblat
+        assert len(mb.hits) == 72
 

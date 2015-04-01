@@ -40,3 +40,24 @@ class ModBlatHit(object):
         self.blocksizes = [int(x) for x in blocksizes.split(',')[0:-1]]
         self.qstarts = [int(x) for x in qstarts.split(',')[0:-1]]
         self.tstarts = [int(x) for x in tstarts.strip().split(',')[0:-1]]
+class ModBlat(object):
+    ''' Class for representing the modified blat/psl file alignments.
+        Argument: String to modblat file
+    '''
+
+    def __init__(self, s):
+        self.filename = s
+        self.hits = self.__load()
+        
+    def __load(self):
+        modblathits = []
+        fp = open(self.filename)
+        with fp as f:
+            # skip header line
+            next(f)
+            for line in f:
+                hit = ModBlatHit(line)
+                modblathits.append(hit)
+        
+        return modblathits
+
