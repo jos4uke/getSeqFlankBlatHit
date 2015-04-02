@@ -86,19 +86,32 @@ def main():
         logger.info("number of bed items: " + str(len(bedItems)))
 
         ## export bed items to bed file
+        logger.info("Export to bed file ...")
+        bed = pybedtools.BedTool(bedItems)
+        outfile = path.basename(path.splitext(args.modblat)[0]) + '_seqFlankBlatHit.bed'
+        bed.saveas(outfile, trackline="track name='genomic sequence extraction flanking blat hit' color=128,0,0")
+        num_lines = sum(1 for line in open(outfile))
+        logger.info("number of lines in bed file: " + str(num_lines))
 
     except KeyboardInterrupt:
         print "Shutdown requested...exiting"
     except Exception:
         traceback.print_exc(file=sys.stdout)
-    sys.exit(0)
 
 ### MAIN ###
 if __name__ == '__main__':
     import sys, traceback
     from os import path, stat
     from pyfasta import Fasta
+    from datetime import datetime
+    import pybedtools
     #sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
     from getSeqBlatLib import ModBlatHit, ModBlat, BedItem
 
+    startTime = datetime.now()
+
     main()
+
+    logger.info("Execution time: " + str(datetime.now() - startTime))
+    sys.exit(0)
+
