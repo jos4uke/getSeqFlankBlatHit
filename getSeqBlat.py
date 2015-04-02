@@ -64,7 +64,6 @@ def main():
             logger.info("genome file: " + args.genome)
             logger.info("number of reference sequences: " + str(len(sorted(fasta.keys()))))
         
-
         ## load mod blat
         logger.info("Loading modblat ...")
         if stat(args.modblat).st_size == 0:
@@ -77,7 +76,17 @@ def main():
         logger.info("number of blat hits: " + str(len(mb.hits)))
         for hit in mb.hits:
             logger.log(0, "qname/tname pair: " + str(hit.qname) + "/" + str(hit.tname))
-    
+
+        ## compute genomic coordinates
+        logger.info("Compute genomic bed items coordinates ...")
+        bedItems= []
+        for hit in mb.hits:
+            bi = hit.computeGenomicSequenceBedItem(args.upstream_frag_sz, args.downstream_frag_sz)
+            bedItems.append(bi.totuple())
+        logger.info("number of bed items: " + str(len(bedItems)))
+
+        ## export bed items to bed file
+
     except KeyboardInterrupt:
         print "Shutdown requested...exiting"
     except Exception:
@@ -90,6 +99,6 @@ if __name__ == '__main__':
     from os import path, stat
     from pyfasta import Fasta
     #sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-    from getSeqBlatLib import ModBlatHit
+    from getSeqBlatLib import ModBlatHit, ModBlat, BedItem
 
     main()
