@@ -93,6 +93,18 @@ def main():
         num_lines = sum(1 for line in open(outfile))
         logger.info("number of lines in bed file: " + str(num_lines))
 
+        ## get fasta sequence from bed
+        logger.info("Get fasta sequences from bed ...")
+        fasta_out = path.basename(path.splitext(args.modblat)[0]) + '_seqFlankBlatHit.fasta'
+        bed = bed.sequence(fi=args.genome, s=True, name=True)
+        bedout = bed.save_seqs(fasta_out)
+        assert open(bedout.seqfn).read() == open(bed.seqfn).read()
+        fout = Fasta(fasta_out)
+        logger.info("flanking blat hits sequences file: " + fasta_out)
+        logger.info("number of flanking sequences: " + str(len(sorted(fout.keys()))))
+        if path.exists(fasta_out):
+            unlink(fasta_out)
+
     except KeyboardInterrupt:
         print "Shutdown requested...exiting"
     except Exception:
