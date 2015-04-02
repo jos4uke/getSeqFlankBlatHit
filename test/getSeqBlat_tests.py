@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# getSeqBlat_tests.py
+# getSeqFlankBlatHit_tests.py
 #
 # author: Joseph Tran <Joseph.Tran@versailles.inra.fr>
 # date: 30-03-2015
@@ -9,7 +9,7 @@
 #import sys
 #from os import path
 #sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-from ..getSeqBlatLib import ModBlatHit, ModBlat, BedItem
+from ..getSeqFlankBlatHitLib import ModBlatHit, ModBlat, BedItem
 
 ### test functions ###
 

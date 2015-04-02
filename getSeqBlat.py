@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-# getSeqBlat.py
+# getSeqFlankBlatHit.py
 #
 # author: Joseph Tran <Joseph.Tran@versailles.inra.fr>
 # date: 25-03-2015
@@ -23,7 +23,7 @@ args = parser.parse_args()
 
 ## logging ##
 # create logger
-logger = logging.getLogger('getSeqBlat')
+logger = logging.getLogger('getSeqFlankBlatHit')
 logger.setLevel(logging.DEBUG)
 
 # create console handler and set level to debug
@@ -118,7 +118,7 @@ if __name__ == '__main__':
     from datetime import datetime
     import pybedtools
     #sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-    from getSeqBlatLib import ModBlatHit, ModBlat, BedItem
+    from getSeqFlankBlatHitLib import ModBlatHit, ModBlat, BedItem
 
     startTime = datetime.now()
 
