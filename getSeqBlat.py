@@ -11,7 +11,7 @@ import argparse
 import logging
 
 ## arguments ##
-parser = argparse.ArgumentParser(description="Extract genomic sequences from a blat result")
+parser = argparse.ArgumentParser(description="Extract genomic sequences flanking blat hits")
 
 parser.add_argument("genome", help="genome in fasta format")
 parser.add_argument("modblat", help="modified blat alignment file in psl-like format (one header line, cf. QT)")
