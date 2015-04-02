@@ -1,16 +1,16 @@
 # getSeqFlankBlatHit
 Getting sequences flanking blat hits
 
-Extraction des sÃ©quences flanquant les hits blat.
+Extraction des séquences flanquant les hits blat.
 
-## Dpendances
-
+## Dépendances
+  
 ### lib
-
+ 
 - getSeqFlankBlatHitLib
 
 ### modules python
-
+  
 - pybedtools
 - pyfasta
 - cython
@@ -18,16 +18,16 @@ Extraction des sÃ©quences flanquant les hits blat.
 - nose (optionnel)
 
 ### tools
-
+  
 - bedtools (>=2.23.0)
 
 ## Contexte
-
-L'extraction de squences flanquantes se fait en amont et en aval d'un hit blat:
+  
+L'extraction de séquences flanquantes se fait en amont et en aval d'un hit blat:
 - en amont de la LTR: p.ex 800pb
 - en aval de la LTR: p.ex 4000pb
 
-Attention ˆ l'orientation du brin: +/-
+Attention à l'orientation du brin: +/-
 - hit brin '+'
        __________________
            |||||||||
@@ -69,13 +69,14 @@ optional arguments:
 
 ### input
 
-- fichier fasta contenant la rfrence (ex: gÃ©nome)
-- fichier blat modifi (ne contient plus qu'une seule ligne d'en-tte)
+- fichier fasta contenant la référence (ex: génome)
+- fichier blat modifié (ne contient plus qu'une seule ligne d'en-tête)
 
 ### output
 
-- fichier bed contenant les coordonnes des squences flanquantes
-- fichier fasta contenant les squences flanquantes
+- fichier bed contenant les coordonnées des séquences flanquantes
+- fichier fasta contenant les séquences flanquantes
+
 
 
 
