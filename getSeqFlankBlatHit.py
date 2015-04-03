@@ -113,11 +113,11 @@ def main():
 ### MAIN ###
 if __name__ == '__main__':
     import sys, traceback
-    from os import path, stat
+    from os import path, stat, unlink
     from pyfasta import Fasta
     from datetime import datetime
     import pybedtools
-    #sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+    sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
     from getSeqFlankBlatHitLib import ModBlatHit, ModBlat, BedItem
 
     startTime = datetime.now()
