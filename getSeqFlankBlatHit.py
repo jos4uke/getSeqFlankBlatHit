@@ -113,7 +113,7 @@ def main():
 ### MAIN ###
 if __name__ == '__main__':
     import sys, traceback
-    from os import path, stat
+    from os import path, stat, unlink
     from pyfasta import Fasta
     from datetime import datetime
     import pybedtools
