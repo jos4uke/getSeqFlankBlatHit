@@ -11,15 +11,23 @@ L'extraction de séquences flanquantes se fait en amont et en aval d'un hit blat:
 
 Attention à l'orientation du brin: +/-
 - hit brin '+'
+
 target 5' __________________ 3'
+            
             |||||||||
+
             ------>
+
   800pb <=  *Tstart  => 4000pb
 
 - hit brin '-'
+
 target 5' __________________ 3'
+
             |||||||||
+
                <-----
+
      4000pb <=  Tend*  => 800pb
 
 ## Help
