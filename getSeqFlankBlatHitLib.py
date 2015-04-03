@@ -61,7 +61,7 @@ class ModBlatHit(object):
             length = chromEnd - chromStart + 1
             name = " ; ".join([self.qname, self.tname, str(chromStart) + ":" + str(chromEnd), str(length)])
             score = 0
-            strand = 'forward'
+            strand = '+'
             bi = BedItem([chrom, chromStart, chromEnd])
             bi.set_name(name)
             bi.set_score(score)
@@ -74,7 +74,7 @@ class ModBlatHit(object):
             length = chromEnd - chromStart + 1
             name = " ; ".join([self.qname, self.tname, str(chromStart) + ":" + str(chromEnd), str(length), 'rc'])
             score = 0
-            strand = 'reverse'
+            strand = '-'
             bi = BedItem([chrom, chromStart, chromEnd])
             bi.set_name(name)
             bi.set_score(score)
