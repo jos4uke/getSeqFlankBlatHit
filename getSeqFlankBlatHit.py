@@ -102,8 +102,6 @@ def main():
         fout = Fasta(fasta_out)
         logger.info("flanking blat hits sequences file: " + fasta_out)
         logger.info("number of flanking sequences: " + str(len(sorted(fout.keys()))))
-        if path.exists(fasta_out):
-            unlink(fasta_out)
 
     except KeyboardInterrupt:
         print "Shutdown requested...exiting"
@@ -113,7 +111,7 @@ def main():
 ### MAIN ###
 if __name__ == '__main__':
     import sys, traceback
-    from os import path, stat, unlink
+    from os import path, stat
     from pyfasta import Fasta
     from datetime import datetime
     import pybedtools
