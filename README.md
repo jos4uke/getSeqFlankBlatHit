@@ -3,42 +3,24 @@ Getting sequences flanking blat hits
 
 Extraction des séquences flanquant les hits blat.
 
-## Dépendances
-  
-### lib
- 
-- getSeqFlankBlatHitLib
-
-### modules python
-  
-- pybedtools
-- pyfasta
-- cython
-- virtualenv (optionnel)
-- nose (optionnel)
-
-### tools
-  
-- bedtools (>=2.23.0)
-
 ## Contexte
   
 L'extraction de séquences flanquantes se fait en amont et en aval d'un hit blat:
-- en amont de la LTR: p.ex 800pb
-- en aval de la LTR: p.ex 4000pb
+- en amont du hit blat: p.ex 800pb
+- en aval du hit blat: p.ex 4000pb
 
 Attention à l'orientation du brin: +/-
 - hit brin '+'
-       __________________
-           |||||||||
-           ------>
-  800pb <= *Tstart  => 4000pb
+target 5' __________________ 3'
+            |||||||||
+            ------>
+  800pb <=  *Tstart  => 4000pb
 
 - hit brin '-'
-       __________________
-           |||||||||
-              <-----
-     4000pb <= Tend*  => 800pb
+target 5' __________________ 3'
+            |||||||||
+               <-----
+     4000pb <=  Tend*  => 800pb
 
 ## Help
 
@@ -67,6 +49,7 @@ optional arguments:
 
 ```
 
+
 ### input
 
 - fichier fasta contenant la référence (ex: génome)
@@ -78,5 +61,175 @@ optional arguments:
 - fichier fasta contenant les séquences flanquantes
 
 
+## Dépendances
+  
+### lib
+ 
+- getSeqFlankBlatHitLib
+
+### modules python
+  
+- cython
+- numpy
+- pybedtools
+- pyfasta
+- virtualenv (optionnel)
+- nose (optionnel)
+
+### tools
+  
+- bedtools (>=2.23.0)
+
+
+## Installation détaillée
+
+#### install utils
+
+```
+sudo easy_install pip
+
+```
+
+#### bedtools
+
+```
+# macosx
+brew install homebrew/science/bedtools
+# or
+port install bedtools
+
+# linux/debian/ubuntu
+apt-get install bedtools
+
+# linux fedora/redhat/centos
+yum install BEDTools
+
+```
+
+#### virtualenv
+
+```
+sudo pip install virtualenv
+
+# optional: 
+# create a virtual env
+virtualenv getSeqFlankBlatHit
+# activate
+source getSeqFlankBlatHit/bin/activate
+# deactivate
+deactivate
+
+```
+#### numpy
+
+```
+# for all users
+sudo pip install numpy
+# or use virtualenv
+pip install numpy
+
+```
+
+#### pyfasta
+
+```
+# for all users
+sudo pip install pyfasta
+# or use virtualenv
+pip install pyfasta
+
+```
+
+#### cython
+
+```
+# for all users
+sudo pip install -U cython
+# or use virtualenv
+pip install -U cython
+
+```
+
+#### pybedtools
+
+```
+# on macosx
+# workaround to fix clang error
+# the ARCHFLAGS is needed to skip error at install
+# [fix clang error](https://kaspermunck.github.io/2014/03/fixing-clang-error/)
+sudo ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip install pybedtools
+
+# or use virtualenv
+ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip install pybedtools
+
+```
+
+#### clone getSeqFlankBlatHit
+
+```
+git clone https://github.com/jos4uke/getSeqFlankBlatHit.git
+
+
+## make script executable
+chmod 755 getSeqFlankBlatHit/getSeqFlankBlatHit.py
+
+```
+
+#### configure PATH
+
+```
+## edit .profile or .bashrc, etc.
+'''
+## getSeqFlankBlatHit
+export PATH=/Users/qtbui/Documents/QUYNH_TRANG/Travail_QT/Scripts_QT/getSeqFlankBlatHit:$PATH
+'''
+source ~/.profile
+
+```
+
+
+# Exemple
+
+### Input
+
+#### genome
+
+```
+grep '>' data/genome_exemple.fa
+>gb|AWOK01290555.1| Nicotiana tabacum, whole genome shotgun sequence
+>gb|AWOK01220183.1| Nicotiana tabacum, whole genome shotgun sequence
+
+```
+
+#### modblat
+
+```
+cat data/modblat_exemple.psl
+match	mis.match	rep_match	countN	Qgapcount	Qgapbases	Tgapcount	Tgapbases	strand	Qname-Tnt1	Qsize	Qstart	Qend	Tname	Tsize	Tstart	Tend	blockcount	blockSizes	qStarts	tStarts
+299     0       0       0       0       0       2       371     +       mira_rep_c6170  299     0       299     gb|AWOK01290555.1|      13594   284     954     3       6,69,224,	0,6,75, 284,660,730,
+223     0       0       0       0       0       0       0       -       mira_rep_c6837  228     0       223     gb|AWOK01220183.1|      13081   7548    7771    1       223     5	7548
+
+```
+
+### Output
+
+#### bed
+
+```
+cat data/modblat_exemple_getSeqFlankBlatHit.bed
+track name='genomic sequence extraction flanking blat hit' color=128,0,0
+gb|AWOK01158785.1|      0       3206    mira_rep_c6836 ; gb|AWOK01158785.1| ; 0:3206 ; 3207 ; rc        0       reverse
+gb|AWOK01318317.1|      5211    9826    mira_c148 ; gb|AWOK01318317.1| ; 5211:9826 ; 4616       0       forward
+
+```
+
+#### fasta
+
+```
+grep '>' data/modblat_exemple_getSeqFlankBlatHit.fasta
+>mira_rep_c6170 ; gb|AWOK01290555.1| ; 0:4284 ; 4285
+>mira_rep_c6837 ; gb|AWOK01220183.1| ; 3771:8386 ; 4616 ; rc
+
+```
 
 
