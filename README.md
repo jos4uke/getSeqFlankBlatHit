@@ -167,6 +167,8 @@ ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future pip insta
 #### clone getSeqFlankBlatHit
 
 ```
+# go to your installation directory, replace/edit the corresponding variable
+cd $INSTALL_DIR
 git clone https://github.com/jos4uke/getSeqFlankBlatHit.git
 
 
@@ -181,7 +183,7 @@ chmod 755 getSeqFlankBlatHit/getSeqFlankBlatHit.py
 ## edit .profile or .bashrc, etc.
 '''
 ## getSeqFlankBlatHit
-export PATH=/Users/qtbui/Documents/QUYNH_TRANG/Travail_QT/Scripts_QT/getSeqFlankBlatHit:$PATH
+export PATH=$INSTALL_DIR/getSeqFlankBlatHit:$PATH
 '''
 source ~/.profile
 
