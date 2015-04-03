@@ -211,6 +211,29 @@ match	mis.match	rep_match	countN	Qgapcount	Qgapbases	Tgapcount	Tgapbases	strand	
 
 ```
 
+### Run
+
+```
+python getSeqFlankBlatHit.py -U 615 -D 4000 data/genome_exemple.fa data/modblat_exemple.psl 
+2015-04-03 15:01:34,086 - getSeqFlankBlatHit - INFO - Loading fasta genome ...
+2015-04-03 15:01:34,128 - getSeqFlankBlatHit - INFO - genome file: genome_exemple.fa
+2015-04-03 15:01:34,129 - getSeqFlankBlatHit - INFO - number of reference sequences: 2
+2015-04-03 15:01:34,129 - getSeqFlankBlatHit - INFO - Loading modblat ...
+2015-04-03 15:01:34,129 - getSeqFlankBlatHit - INFO - mod blat file: modblat_exemple.psl
+2015-04-03 15:01:34,129 - getSeqFlankBlatHit - INFO - number of blat hits: 2
+2015-04-03 15:01:34,129 - getSeqFlankBlatHit - INFO - Compute genomic bed items coordinates ...
+2015-04-03 15:01:34,129 - getSeqFlankBlatHit - INFO - number of bed items: 2
+2015-04-03 15:01:34,129 - getSeqFlankBlatHit - INFO - Export to bed file ...
+2015-04-03 15:01:34,132 - getSeqFlankBlatHit - INFO - number of lines in bed file: 3
+2015-04-03 15:01:34,133 - getSeqFlankBlatHit - INFO - Get fasta sequences from bed ...
+index file genome_exemple.fa.fai not found, generating...
+2015-04-03 15:01:34,318 - getSeqFlankBlatHit - INFO - flanking blat hits sequences file: data/modblat_exemple_seqFlankBlatHit.fasta
+2015-04-03 15:01:34,318 - getSeqFlankBlatHit - INFO - number of flanking sequences: 2
+2015-04-03 15:01:34,319 - getSeqFlankBlatHit - INFO - Execution time: 0:00:00.232825
+
+
+```
+
 ### Output
 
 #### bed
