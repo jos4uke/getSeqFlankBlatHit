@@ -249,20 +249,19 @@ index file genome_exemple.fa.fai not found, generating...
 #### bed
 
 ```
-cat data/modblat_exemple_getSeqFlankBlatHit.bed
+cat data/modblat_exemple_seqFlankBlatHit.bed
 track name='genomic sequence extraction flanking blat hit' color=128,0,0
-gb|AWOK01290555.1|	0	4284	mira_rep_c6170 ; gb|AWOK01290555.1| ; 0:4284 ; 4285	0	forward
-gb|AWOK01220183.1|	3771	8386	mira_rep_c6837 ; gb|AWOK01220183.1| ; 3771:8386 ; 4616 ; rc	0	reverse
+gb|AWOK01290555.1|      0       4283    mira_rep_c6170 ; gb|AWOK01290555.1| ; 0:4283 ; 4284     0       +
+gb|AWOK01220183.1|      3770    8385    mira_rep_c6837 ; gb|AWOK01220183.1| ; 3770:8385 ; 4616 ; rc     0       -
 
 ```
 
 #### fasta
 
 ```
-grep '>' data/modblat_exemple_getSeqFlankBlatHit.fasta
->mira_rep_c6170 ; gb|AWOK01290555.1| ; 0:4284 ; 4285
->mira_rep_c6837 ; gb|AWOK01220183.1| ; 3771:8386 ; 4616 ; rc
-
+grep '>' data/modblat_exemple_seqFlankBlatHit.fasta
+>mira_rep_c6170 ; gb|AWOK01290555.1| ; 0:4283 ; 4284
+>mira_rep_c6837 ; gb|AWOK01220183.1| ; 3770:8385 ; 4616 ; rc
 ```
 
 
