@@ -59,7 +59,7 @@ class ModBlatHit(object):
             chromStart = self.computeGenomicSequenceCoord(ltr_size, self.tstart, 'upstream')
             chromEnd = self.computeGenomicSequenceCoord(transcript_size, self.tstart, 'downstream')
             length = chromEnd - chromStart + 1
-            name = " ; ".join([self.qname, self.tname, str(chromStart) + ":" + str(chromEnd), str(length)])
+            name = " ; ".join([self.qname, self.tname, str(chromStart - 1) + ":" + str(chromEnd - 1), str(length)])
             score = 0
             strand = '+'
             bi = BedItem([chrom, chromStart, chromEnd])
@@ -72,7 +72,7 @@ class ModBlatHit(object):
             chromStart = self.computeGenomicSequenceCoord(transcript_size, self.tend, 'upstream')
             chromEnd = self.computeGenomicSequenceCoord(ltr_size, self.tend, 'downstream')
             length = chromEnd - chromStart + 1
-            name = " ; ".join([self.qname, self.tname, str(chromStart) + ":" + str(chromEnd), str(length), 'rc'])
+            name = " ; ".join([self.qname, self.tname, str(chromStart - 1) + ":" + str(chromEnd - 1), str(length), 'rc'])
             score = 0
             strand = '-'
             bi = BedItem([chrom, chromStart, chromEnd])
@@ -137,8 +137,8 @@ class BedItem():
         chrom, chromStart, chromEnd = a[0:3]
 
         self.chrom = chrom
-        self.chromStart = int(chromStart)
-        self.chromEnd = int(chromEnd)
+        self.chromStart = int(chromStart) - 1
+        self.chromEnd = int(chromEnd) - 1
 
     def set_name(self, s):
         self.name = s

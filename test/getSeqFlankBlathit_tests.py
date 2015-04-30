@@ -203,8 +203,8 @@ class TestModBlatHit():
         bi = hit.computeGenomicSequenceBedItem(ltr_size, transcript_size)
         t_comp = bi.totuple()
         chrom_exp = 'gb|AWOK01318317.1|'
-        chromStart_exp = 5826 - ltr_size
-        chromEnd_exp = 5826 + transcript_size
+        chromStart_exp = 5826 - ltr_size - 1
+        chromEnd_exp = 5826 + transcript_size - 1
         length = chromEnd_exp - chromStart_exp + 1
         name_exp = " ; ".join(['mira_c148', 'gb|AWOK01318317.1|', str(chromStart_exp) + ":" + str(chromEnd_exp), str(length)]) 
         t_exp = (chrom_exp,
@@ -212,7 +212,9 @@ class TestModBlatHit():
                     chromEnd_exp,
                     name_exp,
                     0,
-                    'forward')
+                    '+')
+        #print(t_comp)
+        #print(t_exp)
         assert t_comp == t_exp
     
     def test_computeGenomicSequenceCoord_reverse(self):
@@ -228,13 +230,13 @@ class TestModBlatHit():
         chromStart_exp = 48750 - transcript_size
         chromEnd_exp = 48750 + ltr_size
         length = chromEnd_exp - chromStart_exp + 1
-        name_exp = " ; ".join(['mira_rep_c5792', 'gb|AWOK01096782.1|', str(chromStart_exp) + ":" + str(chromEnd_exp), str(length), 'rc']) 
+        name_exp = " ; ".join(['mira_rep_c5792', 'gb|AWOK01096782.1|', str(chromStart_exp - 1) + ":" + str(chromEnd_exp - 1), str(length), 'rc']) 
         t_exp = (chrom_exp,
-                    chromStart_exp,
-                    chromEnd_exp,
+                    chromStart_exp - 1,
+                    chromEnd_exp - 1,
                     name_exp,
                     0,
-                    'reverse')
+                    '-')
         assert t_comp == t_exp
 
 
@@ -289,8 +291,8 @@ class TestBedItem():
     def test_init(self):
         bi = BedItem(self.beditem)
         assert bi.chrom == 'chr1'
-        assert bi.chromStart == 1
-        assert bi.chromEnd == 10
+        assert bi.chromStart == 0
+        assert bi.chromEnd == 9
 
     def test_name(self):
         bi = BedItem(self.beditem)
@@ -313,8 +315,8 @@ class TestBedItem():
         bi.set_score(self.score)
         bi.set_strand(self.strand)
         t = (self.beditem[0],
-                self.beditem[1],
-                self.beditem[2],
+                self.beditem[1] - 1,
+                self.beditem[2] - 1,
                 self.name,
                 self.score,
                 self.strand)        
