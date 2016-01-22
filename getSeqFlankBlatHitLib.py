@@ -62,7 +62,7 @@ class ModBlatHit(object):
             strand = '+'
             bi = BedItem([chrom, chromStart, chromEnd])
             length = bi.chromEnd - bi.chromStart + 1
-            name = " ; ".join([self.qname, self.tname, str(bi.chromStart) + ":" + str(bi.chromEnd), str(length)])
+            name = " ; ".join([self.tname, self.qname, str(bi.chromStart) + ":" + str(bi.chromEnd), str(length)])
             bi.set_name(name)
             bi.set_score(score)
             bi.set_strand(strand)
@@ -75,7 +75,7 @@ class ModBlatHit(object):
             strand = '-'
             bi = BedItem([chrom, chromStart, chromEnd])
             length = bi.chromEnd - bi.chromStart + 1
-            name = " ; ".join([self.qname, self.tname, str(bi.chromStart) + ":" + str(bi.chromEnd), str(length), 'rc'])
+            name = " ; ".join([self.tname, self.qname, str(bi.chromStart) + ":" + str(bi.chromEnd), str(length), 'rc'])
             bi.set_name(name)
             bi.set_score(score)
             bi.set_strand(strand)
